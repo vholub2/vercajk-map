@@ -20,24 +20,21 @@ def convert_xml_to_json():
         print("Parsing XML data...")
         root = ET.fromstring(response.content)
 
-        products = []
+        products_map = {}
         for item in root.findall('SHOPITEM'):
             item_id_element = item.find('ITEM_ID')
             product_name_element = item.find('PRODUCTNAME')
 
             if item_id_element is not None and product_name_element is not None:
-                products.append(
-                    {
-                        'ITEM_ID': item_id_element.text,
-                        'PRODUCTNAME': product_name_element.text,
-                    }
-                )
+                products_map[item_id_element.text] = product_name_element.text
 
         print(f"Saving data to {OUTPUT_FILENAME}...")
         with open(OUTPUT_FILENAME, 'w', encoding='utf-8') as f:
-            json.dump(products, f, ensure_ascii=False)
+            json.dump(products_map, f, ensure_ascii=False)
 
-        print(f"Successfully created {OUTPUT_FILENAME} with {len(products)} products.")
+        print(
+            f"Successfully created {OUTPUT_FILENAME} with {len(products_map)} products."
+        )
 
     except requests.exceptions.RequestException as e:
         print(f"Error downloading the feed: {e}")
