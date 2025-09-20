@@ -22,7 +22,7 @@ def convert_xml_to_json():
 
         products_map = {}
         for item in root.findall('SHOPITEM'):
-            item_id_element = item.find('ITEM_ID')
+            item_id_element = item.find('PRODUCT_CODE')
             product_name_element = item.find('PRODUCTNAME')
 
             if item_id_element is not None and product_name_element is not None:
