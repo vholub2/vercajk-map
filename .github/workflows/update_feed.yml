@@ -3,10 +3,6 @@ name: Update Heureka Product Feed JSON
 on:
   workflow_dispatch:
 
-  push:
-    branches:
-      - main
-
 permissions:
   contents: write
   pages: write
